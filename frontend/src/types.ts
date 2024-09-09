@@ -1,6 +1,8 @@
 export type UserContextType = {
  user: User;
  setUser: (newValue: User) => void;
+ submit: any;
+ setSubmit: any
 }
 
 export type User = {

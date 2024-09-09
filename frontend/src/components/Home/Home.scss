@@ -1,0 +1,23 @@
+.main-container {
+ border: 1px solid black;
+ width: 100vw;
+ height: 100vh;
+ display: flex;
+
+ .results-container {
+  background-color: hsl(202, 55%, 16%);
+  color: white;
+ }
+}
+
+@media screen and (min-width:360px) {
+ .main-container {
+  flex-direction: column;
+ }
+}
+
+@media screen and (min-width: 1280px) {
+ .main-container {
+  flex-direction: row;
+ }
+}

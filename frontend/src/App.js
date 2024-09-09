@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import './App.css';
 import Router from './Router';
-import Header from './components/Header/Header';
 
 function App() {
 
@@ -19,7 +18,6 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
       <Router />
     </div>
   );

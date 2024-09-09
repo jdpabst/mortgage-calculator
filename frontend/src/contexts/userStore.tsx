@@ -6,8 +6,10 @@ const UserContext = createContext<UserContextType>(null);
 export const UserStore = ({ children }) => {
  const [user, setUser] = useState<User>(null)
 
+ const [submit, setSubmit] = useState('')
+
  return (
-  <UserContext.Provider value={{ user, setUser, }}>
+  <UserContext.Provider value={{ user, setUser, submit, setSubmit }}>
    {children}
   </ UserContext.Provider>
  )
