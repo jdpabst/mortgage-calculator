@@ -2,7 +2,11 @@ export type UserContextType = {
  user: User;
  setUser: (newValue: User) => void;
  submit: any;
- setSubmit: any
+ setSubmit: any;
+ selectedRadio: any;
+ setSelectedRadio: any;
+ checked: any;
+ setChecked: any;
 }
 
 export type User = {
