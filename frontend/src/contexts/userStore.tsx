@@ -8,9 +8,11 @@ export const UserStore = ({ children }) => {
  const [selectedRadio, setSelectedRadio] = useState('');
  const [checked, setChecked] = useState('');
  const [submit, setSubmit] = useState('')
+ const [inputValue, setInputValue] = useState('');
+ // const [InputErrors, setInputErrors] = useState('');
 
  return (
-  <UserContext.Provider value={{ user, setUser, submit, setSubmit, selectedRadio, setSelectedRadio, checked, setChecked }}>
+  <UserContext.Provider value={{ user, setUser, submit, setSubmit, selectedRadio, setSelectedRadio, checked, setChecked, inputValue, setInputValue }}>
    {children}
   </ UserContext.Provider>
  )

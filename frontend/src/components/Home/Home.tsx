@@ -1,16 +1,70 @@
+import { useState } from 'react';
 import { useUserContext } from 'src/contexts/userStore';
 import './Home.scss';
 
 export default function Home() {
  const { submit, setSubmit } = useUserContext();
  const { selectedRadio, setSelectedRadio } = useUserContext();
+ // const { inputValue, setInputValue } = useUserContext();
+ // const { error, setError } = useUserContext();
+ const [inputValues, setInputValues] = useState({
+  mortgageAmount: '',
+  mortgageTerm: '',
+  interestRate: '',
+  repayment: '',
+  interestOnly: ''
+ });
+ const [inputErrors, setInputErrors] = useState({
+  mortgageAmount: '',
+  mortgageTerm: '',
+  interestRate: '',
+  repayment: '',
+  interestOnly: ''
+ });
+
+ const handleInputChange = (e, field) => {
+  const value = e.target.value;
+  setInputValues((prevValues) => ({
+   ...prevValues,
+   [field]: value,
+  }));
+
+  // Validate if the input is empty and update corresponding error state
+  setInputErrors((prevErrors) => ({
+   ...prevErrors,
+   [field]: value.trim() ? '' : 'This field is required.',
+  }));
+ };
+
+ const handleSubmit = (e) => {
+  e.preventDefault();
+
+  // Check for errors in all inputs
+  let newErrors = { ...inputErrors };
+
+  Object.keys(inputValues).forEach((field) => {
+   if (!inputValues[field].trim()) {
+    newErrors[field] = 'This field is required.';
+   }
+  });
+
+  // Check if a radio button is selected
+  if (!selectedRadio) {
+   newErrors.repayment = 'Please select a mortgage type.';
+  }
+
+  // Update error state
+  setInputErrors(newErrors);
+
+  // If no errors, proceed with form submission
+  const hasErrors = Object.values(newErrors).some((error) => error !== '');
+  if (!hasErrors) {
+   setSubmit(!submit);
+  }
+ };
 
  const handleRadioChecked = (value) => {
   setSelectedRadio(value);
- };
-
- const handleSubmit = () => {
-  setSubmit(!submit);
  };
 
  return (
@@ -21,21 +75,33 @@ export default function Home() {
      <button>Clear All</button>
     </span>
 
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={(e) => handleSubmit(e)}>
      <label> Mortgage Amount
-      <input type='text' className='amount-input' />
+      <input
+       type='text'
+       className={`amount-input ${inputErrors.mortgageAmount ? 'input-error' : ''}`}
+       onChange={(e) => handleInputChange(e, 'mortgageAmount')} />
       <p className='dollar-sign icon'>$</p>
+      {inputErrors.mortgageAmount && <h3 className='error-message'>{inputErrors.mortgageAmount}</h3>}
      </label>
 
      <div className='term-rate-container'>
       <label>Mortgage Term
-       <input type='text' />
+       <input
+        type='text'
+        className={`${inputErrors.mortgageTerm ? 'input-error' : ''}`}
+        onChange={(e) => handleInputChange(e, 'mortgageTerm')} />
        <p className='years icon'>years</p>
+       {inputErrors.mortgageTerm && <h3 className='error-message'>{inputErrors.mortgageTerm}</h3>}
       </label>
 
       <label>Interest Rate
-       <input type='text' />
+       <input
+        type='text'
+        className={`${inputErrors.interestRate ? 'input-error' : ''}`}
+        onChange={(e) => handleInputChange(e, 'interestRate')} />
        <p className='percent-sign icon'>%</p>
+       {inputErrors.interestRate && <h3 className='error-message'>{inputErrors.interestRate}</h3>}
       </label>
      </div>
 
@@ -53,7 +119,7 @@ export default function Home() {
          name="type"
          value="repayment"
          checked={selectedRadio === 'repayment'}
-         onChange={() => handleRadioChecked('repayment')}
+         onChange={(e) => { handleRadioChecked('repayment'); handleInputChange(e, 'repayment') }}
         />
        </span>
        <p>Repayment</p>
@@ -71,7 +137,7 @@ export default function Home() {
          name="type"
          value="interest-only"
          checked={selectedRadio === 'interest-only'}
-         onChange={() => handleRadioChecked('interest-only')}
+         onChange={(e) => { handleRadioChecked('interest-only'); handleInputChange(e, 'interestOnly') }}
         />
        </span>
        <p>Interest Only</p>
@@ -79,8 +145,10 @@ export default function Home() {
      </label>
 
      <button className='form-submit-bttn'>
-      <img src='/assets/icon-calculator.svg' alt="calculator icon" />
-      <p>Calculate Repayments</p>
+      <div className='submit-bttn-contents'>
+       <img src='/assets/icon-calculator.svg' alt="calculator icon" />
+       <p>Calculate Repayments</p>
+      </div>
      </button>
     </form>
    </div>
@@ -90,7 +158,7 @@ export default function Home() {
      <div>submitted</div>
      :
      <div className='unsubmitted-form'>
-      <img src='/assets/illustration-empty.svg' alt="empty illustration" />
+      <img className='empty-icon' src='/assets/illustration-empty.svg' alt="empty illustration" />
       <h1>Results shown here</h1>
       <p>Complete the form and click "calculate repayments" to see what your monthly repayments would be.</p>
      </div>

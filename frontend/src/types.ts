@@ -7,6 +7,10 @@ export type UserContextType = {
  setSelectedRadio: any;
  checked: any;
  setChecked: any;
+ inputValue: any;
+ setInputValue: any;
+ // InputErrors: any;
+ // setInputErrors: any;
 }
 
 export type User = {
