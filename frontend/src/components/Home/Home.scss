@@ -115,6 +115,13 @@
    }
   }
 
+  .radio-error-message {
+   color: red;
+   font-size: 17px;
+   font-weight: 500;
+   margin-top: 12px;
+  }
+
   .radio-options-container {
    display: flex;
    flex-direction: column;
@@ -333,6 +340,7 @@
 
   .mortgage-form-main-container {
    width: 50%;
+   position: relative
   }
 
   .results-container {

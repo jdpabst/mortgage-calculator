@@ -5,8 +5,7 @@ import './Home.scss';
 export default function Home() {
  const { submit, setSubmit } = useUserContext();
  const { selectedRadio, setSelectedRadio } = useUserContext();
- // const { inputValue, setInputValue } = useUserContext();
- // const { error, setError } = useUserContext();
+
  const [inputValues, setInputValues] = useState({
   mortgageAmount: '',
   mortgageTerm: '',
@@ -21,6 +20,8 @@ export default function Home() {
   repayment: '',
   interestOnly: ''
  });
+
+ console.log(inputValues.mortgageAmount)
 
  const handleInputChange = (e, field) => {
   const value = e.target.value;
@@ -50,7 +51,7 @@ export default function Home() {
 
   // Check if a radio button is selected
   if (!selectedRadio) {
-   newErrors.repayment = 'Please select a mortgage type.';
+   newErrors.repayment = 'This field is required.';
   }
 
   // Update error state
@@ -67,18 +68,38 @@ export default function Home() {
   setSelectedRadio(value);
  };
 
+ const handleClearForm = () => {
+  setInputValues({
+   mortgageAmount: '',
+   mortgageTerm: '',
+   interestRate: '',
+   repayment: '',
+   interestOnly: ''
+  });
+
+  setInputErrors({
+   mortgageAmount: '',
+   mortgageTerm: '',
+   interestRate: '',
+   repayment: '',
+   interestOnly: ''
+  })
+ }
+
+
  return (
   <div className='main-container'>
    <div className='mortgage-form-main-container'>
     <span className='heading'>
      <h1>Mortgage Calculator</h1>
-     <button>Clear All</button>
+     <button onClick={handleClearForm}>Clear All</button>
     </span>
 
     <form onSubmit={(e) => handleSubmit(e)}>
      <label> Mortgage Amount
       <input
        type='text'
+       value={inputValues.mortgageAmount}
        className={`amount-input ${inputErrors.mortgageAmount ? 'input-error' : ''}`}
        onChange={(e) => handleInputChange(e, 'mortgageAmount')} />
       <p className='dollar-sign icon'>$</p>
@@ -89,6 +110,7 @@ export default function Home() {
       <label>Mortgage Term
        <input
         type='text'
+        value={inputValues.mortgageTerm}
         className={`${inputErrors.mortgageTerm ? 'input-error' : ''}`}
         onChange={(e) => handleInputChange(e, 'mortgageTerm')} />
        <p className='years icon'>years</p>
@@ -98,6 +120,7 @@ export default function Home() {
       <label>Interest Rate
        <input
         type='text'
+        value={inputValues.interestRate}
         className={`${inputErrors.interestRate ? 'input-error' : ''}`}
         onChange={(e) => handleInputChange(e, 'interestRate')} />
        <p className='percent-sign icon'>%</p>
@@ -142,7 +165,9 @@ export default function Home() {
        </span>
        <p>Interest Only</p>
       </div>
+      {inputErrors.repayment && inputErrors.interestOnly && <h3 className='radio-error-message'>{inputErrors.repayment}</h3>}
      </label>
+
 
      <button className='form-submit-bttn'>
       <div className='submit-bttn-contents'>
