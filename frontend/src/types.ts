@@ -7,6 +7,10 @@ export type UserContextType = {
  setSelectedRadio: any;
  input: any;
  setInput: any;
+ total: any;
+ setTotal: any;
+ monthly: any;
+ setMonthly: any;
 }
 
 export type User = {

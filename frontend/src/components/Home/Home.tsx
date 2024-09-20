@@ -5,6 +5,8 @@ import './Home.scss';
 export default function Home() {
  const { submit, setSubmit } = useUserContext();
  const { selectedRadio, setSelectedRadio } = useUserContext();
+ const { total, setTotal } = useUserContext();
+ const { monthly, setMonthly } = useUserContext();
 
  const [inputValues, setInputValues] = useState({
   mortgageAmount: '',
@@ -21,8 +23,6 @@ export default function Home() {
   interestOnly: ''
  });
 
- console.log(inputValues.mortgageAmount)
-
  const handleInputChange = (e, field) => {
   const value = e.target.value;
   setInputValues((prevValues) => ({
@@ -36,6 +36,24 @@ export default function Home() {
    [field]: value.trim() ? '' : 'This field is required.',
   }));
  };
+
+ // const repaymentTotal = () => {
+ //  let amount = Number(inputValues.mortgageAmount);
+ //  let rate = Number(inputValues.interestRate);
+ //  let term = Number(inputValues.mortgageTerm);
+
+
+ //  let decimalRate = rate % 100;
+
+ //  let monthlyPayments = (amount * decimalRate) % 12;
+ //  let onlyInterest = amount * decimalRate * term;
+
+ //  let totalAmount = amount + onlyInterest;
+
+ //  setTotal(totalAmount);
+ //  setMonthly(monthlyPayments)
+
+ // }
 
  const handleSubmit = (e) => {
   e.preventDefault();
@@ -52,6 +70,10 @@ export default function Home() {
   // Check if a radio button is selected
   if (!selectedRadio) {
    newErrors.repayment = 'This field is required.';
+   newErrors.interestOnly = 'This field is required.';
+  } else {
+   newErrors.repayment = '';
+   newErrors.interestOnly = '';
   }
 
   // Update error state
@@ -59,8 +81,25 @@ export default function Home() {
 
   // If no errors, proceed with form submission
   const hasErrors = Object.values(newErrors).some((error) => error !== '');
+
   if (!hasErrors) {
    setSubmit(!submit);
+   let amount = Number(inputValues.mortgageAmount);
+   let rate = Number(inputValues.interestRate);
+   let term = Number(inputValues.mortgageTerm);
+
+
+   let decimalRate = rate / 100;
+
+   let monthlyPayments = (amount * decimalRate) / 12;
+   let onlyInterest = amount * decimalRate * term;
+
+   let totalAmount = Number(amount) + Number(onlyInterest);
+
+   console.log(decimalRate)
+
+   setTotal(totalAmount);
+   setMonthly(monthlyPayments)
   }
  };
 
@@ -83,7 +122,11 @@ export default function Home() {
    interestRate: '',
    repayment: '',
    interestOnly: ''
-  })
+  });
+
+  setSelectedRadio('');
+
+  setSubmit(false);
  }
 
 
@@ -95,7 +138,7 @@ export default function Home() {
      <button onClick={handleClearForm}>Clear All</button>
     </span>
 
-    <form onSubmit={(e) => handleSubmit(e)}>
+    <form onSubmit={handleSubmit}>
      <label> Mortgage Amount
       <input
        type='text'
@@ -180,9 +223,24 @@ export default function Home() {
 
    <div className='results-container'>
     {submit ?
-     <div>submitted</div>
+     <div className='form-results-container'>
+      <div className='results-inner-container'>
+       <h1 className='results-h1'>Your results</h1>
+       <p className='results-desc'>Your results are shown below based on the information you provided. To adjust the results, edit the form and click "calculate repayments" again.</p>
+       <div className='monthly-repayments-container'>
+        <div className='repayments-inner-container'>
+         <p>Your monthly repayments</p>
+         <h1>${monthly}</h1>
+        </div>
+        <div className='term-container'>
+         <p>Total you'll pay over the term</p>
+         <h2>${total}</h2>
+        </div>
+       </div>
+      </div>
+     </div>
      :
-     <div className='unsubmitted-form'>
+     <div className='form-results-container'>
       <img className='empty-icon' src='/assets/illustration-empty.svg' alt="empty illustration" />
       <h1>Results shown here</h1>
       <p>Complete the form and click "calculate repayments" to see what your monthly repayments would be.</p>

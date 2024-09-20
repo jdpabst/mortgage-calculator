@@ -55,28 +55,28 @@
    }
 
    input.input-error {
-    border-color: red;
+    border-color: hsl(4, 69%, 50%);
    }
 
    input.input-error+.icon {
-    background-color: red;
+    background-color: hsl(4, 69%, 50%);
     color: white;
    }
 
    input.input-error:focus {
     outline: none;
-    border-color: red;
+    border-color: hsl(4, 69%, 50%);
    }
 
    input.input-error:focus+.icon {
-    background-color: red;
+    background-color: hsl(4, 69%, 50%);
     color: white;
    }
 
 
 
    .error-message {
-    color: red;
+    color: hsl(4, 69%, 50%);
     font-size: 17px;
     font-weight: 500;
     margin-bottom: 35px;
@@ -116,7 +116,7 @@
   }
 
   .radio-error-message {
-   color: red;
+   color: hsl(4, 69%, 50%);
    font-size: 17px;
    font-weight: 500;
    margin-top: 12px;
@@ -193,7 +193,49 @@
   cursor: pointer;
  }
 
- .unsubmitted-form {
+ .form-results-container {
+
+  .results-inner-container {
+   width: 87%;
+   margin: 0 auto;
+   margin-top: 45px;
+   text-align: left;
+
+
+   .results-desc {
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    margin-bottom: 40px;
+   }
+
+   .monthly-repayments-container {
+    border-top: 6px solid hsl(61, 70%, 52%);
+    background-color: hsl(202, 56%, 12%);
+    border-radius: 10px;
+
+    .repayments-inner-container {
+     width: 85%;
+     margin: 0 auto;
+     border-bottom: 2px solid hsl(202, 54%, 22%);
+
+     h1 {
+      color: hsl(61, 70%, 52%);
+     }
+    }
+
+    .term-container {
+     width: 85%;
+     margin: 0 auto;
+
+     p {
+      margin: 0;
+      margin-bottom: 20px;
+     }
+    }
+   }
+  }
 
   h1 {
    margin-bottom: 12px;
@@ -299,7 +341,50 @@
   }
  }
 
- .unsubmitted-form {
+ .form-results-container {
+
+  .results-inner-container {
+
+   .results-h1 {
+    font-size: 25px;
+   }
+
+   .results-desc {
+    font-size: 15px;
+    line-height: 21px;
+   }
+
+   .monthly-repayments-container {
+    margin-bottom: 30px;
+
+    .repayments-inner-container {
+     padding-top: 20px;
+     padding-bottom: 10px;
+
+     p {
+      font-size: 15px;
+      margin-bottom: 10px;
+     }
+
+     h1 {
+      font-size: 30px;
+     }
+    }
+
+    .term-container {
+     padding-top: 20px;
+     padding-bottom: 20px;
+
+     p {
+      font-size: 15px;
+     }
+
+     h2 {
+      font-size: 20px;
+     }
+    }
+   }
+  }
 
   .empty-icon {
    margin: 0 auto;
@@ -314,7 +399,7 @@
 
   p {
    font-size: 14px;
-   width: 80%;
+   // width: 80%;
   }
  }
 }
@@ -345,6 +430,7 @@
 
   .results-container {
    border-bottom-left-radius: 14%;
+   width: 50%;
   }
 
   form {
@@ -426,6 +512,8 @@
    border-radius: 35px;
    width: 370px;
    height: 65px;
+   position: absolute;
+   left: 50px;
 
    .submit-bttn-contents {
     width: 76%;
@@ -441,7 +529,50 @@
 
   }
 
-  .unsubmitted-form {
+  .form-results-container {
+
+   .results-inner-container {
+
+    .results-h1 {
+     font-size: 34px;
+    }
+
+    .results-desc {
+     font-size: 22px;
+     line-height: 30px;
+    }
+
+    .monthly-repayments-container {
+     height: 370px;
+
+     .repayments-inner-container {
+      padding-top: 40px;
+      padding-bottom: 20px;
+
+      p {
+       margin: 0;
+       font-size: 21px;
+       margin-bottom: 20px;
+      }
+
+      h1 {
+       font-size: 70px;
+      }
+     }
+
+     .term-container {
+      padding-top: 40px;
+
+      p {
+       font-size: 21px;
+      }
+
+      h2 {
+       font-size: 35px;
+      }
+     }
+    }
+   }
 
    .empty-icon {
     margin-top: 180px;

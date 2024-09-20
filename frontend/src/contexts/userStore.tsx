@@ -8,10 +8,12 @@ export const UserStore = ({ children }) => {
  const [selectedRadio, setSelectedRadio] = useState('');
  const [submit, setSubmit] = useState('');
  const [input, setInput] = useState('');
+ const [total, setTotal] = useState('');
+ const [monthly, setMonthly] = useState('');
 
 
  return (
-  <UserContext.Provider value={{ user, setUser, submit, setSubmit, selectedRadio, setSelectedRadio, input, setInput }}>
+  <UserContext.Provider value={{ user, setUser, submit, setSubmit, selectedRadio, setSelectedRadio, input, setInput, total, setTotal, monthly, setMonthly }}>
    {children}
   </ UserContext.Provider>
  )
