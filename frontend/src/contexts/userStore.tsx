@@ -10,10 +10,11 @@ export const UserStore = ({ children }) => {
  const [input, setInput] = useState('');
  const [total, setTotal] = useState('');
  const [monthly, setMonthly] = useState('');
+ const [interestOnly, setInterestOnly] = useState('');
 
 
  return (
-  <UserContext.Provider value={{ user, setUser, submit, setSubmit, selectedRadio, setSelectedRadio, input, setInput, total, setTotal, monthly, setMonthly }}>
+  <UserContext.Provider value={{ user, setUser, submit, setSubmit, selectedRadio, setSelectedRadio, input, setInput, total, setTotal, monthly, setMonthly, interestOnly, setInterestOnly }}>
    {children}
   </ UserContext.Provider>
  )

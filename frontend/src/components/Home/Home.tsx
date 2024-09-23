@@ -7,6 +7,7 @@ export default function Home() {
  const { selectedRadio, setSelectedRadio } = useUserContext();
  const { total, setTotal } = useUserContext();
  const { monthly, setMonthly } = useUserContext();
+ const { interestOnly, setInterestOnly } = useUserContext();
 
  const [inputValues, setInputValues] = useState({
   mortgageAmount: '',
@@ -83,7 +84,7 @@ export default function Home() {
   const hasErrors = Object.values(newErrors).some((error) => error !== '');
 
   if (!hasErrors) {
-   setSubmit(!submit);
+   setSubmit(true);
    let amount = Number(inputValues.mortgageAmount);
    let rate = Number(inputValues.interestRate);
    let term = Number(inputValues.mortgageTerm);
@@ -98,8 +99,9 @@ export default function Home() {
 
    console.log(decimalRate)
 
-   setTotal(totalAmount);
-   setMonthly(monthlyPayments)
+   setTotal((totalAmount).toFixed(2));
+   setMonthly((monthlyPayments).toFixed(2))
+   setInterestOnly((onlyInterest).toFixed(2))
   }
  };
 
@@ -227,16 +229,30 @@ export default function Home() {
       <div className='results-inner-container'>
        <h1 className='results-h1'>Your results</h1>
        <p className='results-desc'>Your results are shown below based on the information you provided. To adjust the results, edit the form and click "calculate repayments" again.</p>
-       <div className='monthly-repayments-container'>
-        <div className='repayments-inner-container'>
-         <p>Your monthly repayments</p>
-         <h1>${monthly}</h1>
+       {selectedRadio === 'repayment' ?
+        <div className='monthly-repayments-container'>
+         <div className='repayments-inner-container'>
+          <p>Your monthly repayments</p>
+          <h1>${monthly}</h1>
+         </div>
+         <div className='term-container'>
+          <p>Total you'll pay over the term</p>
+          <h2>${total}</h2>
+         </div>
         </div>
-        <div className='term-container'>
-         <p>Total you'll pay over the term</p>
-         <h2>${total}</h2>
+        :
+        <div className='monthly-repayments-container'>
+         <div className='repayments-inner-container'>
+          <p>Interest only</p>
+          <h1>${interestOnly}</h1>
+         </div>
+         <div className='term-container'>
+          <p>Total you'll pay over the term</p>
+          <h2>${total}</h2>
+         </div>
         </div>
-       </div>
+
+       }
       </div>
      </div>
      :

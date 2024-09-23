@@ -11,6 +11,8 @@ export type UserContextType = {
  setTotal: any;
  monthly: any;
  setMonthly: any;
+ interestOnly: any;
+ setInterestOnly: any;
 }
 
 export type User = {
